@@ -98,7 +98,7 @@ module Coverband
           else
             line_array.each_with_index{|_,index| line_array[index] = (line_array[index].to_i + lines_hit[(index + 1).to_s].to_i) if lines_hit.keys.include?((index + 1).to_s) }
           end
-          {filename => line_array}
+          {filename => line_array.map! { |x| x.nil? ? 0 : x }}
         else
           Coverband.configuration.logger.info "file #{filename} not found in project"
           nil
