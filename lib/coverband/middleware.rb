@@ -12,7 +12,14 @@ module Coverband
       rescue
         # we don't want to interrupt web request with any error from this gem
       end
+
       @app.call(env)
+    ensure
+      begin
+        Coverband::Base.instance.report_coverage
+      rescue
+        # we don't want to interrupt web request with any error from this gem
+      end
     end
 
   end
